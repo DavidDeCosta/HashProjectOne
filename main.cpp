@@ -34,6 +34,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
+            cout << "Checked index: " << index <<endl;
             index = (index +1) % TABLESIZE;
         }   
             HashTable[index]->name = name;
@@ -88,6 +89,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
+            cout << "Checked index: " <<index << endl;
             index = (index + n *n) % TABLESIZE;
             n++;
         }   
@@ -146,6 +148,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
+            cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
             index = hashkeytwo(index,key);
         }   
             HashTable[index]->name = name;
@@ -168,6 +171,7 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
                 index = hashkeytwo(index,key);
             }
         }
@@ -187,6 +191,7 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
                 index = hashkeytwo(index,key);
             }
         }
@@ -221,6 +226,7 @@ int main(){
                     list.linearInsertRecord("Vincent DeCosta",345);
                     list.linearInsertRecord("Nathan DeCosta",892);
                     list.linearInsertRecord("Travis Ramsey", 192);
+                    list.linearInsertRecord("Snowman",192);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -250,12 +256,12 @@ int main(){
             cin >> optionTwo;
                 while(optionTwo != -99){
                 if(optionTwo == 1){
-                    list.quadraticInsertRecord("Twon JuneBug",198);
-                    list.quadraticInsertRecord("beetle boi",198);
-                    list.quadraticInsertRecord("larry harry",198);
-                    list.quadraticInsertRecord("sassy sally",344);
-                    list.quadraticInsertRecord("christopher",999);
-                    list.quadraticInsertRecord("jammy pammy",864);
+                    list.quadraticInsertRecord("El Twono Loco",198);
+                    list.quadraticInsertRecord("Christopher",198);
+                    list.quadraticInsertRecord("Estelle Lombardi",198);
+                    list.quadraticInsertRecord("Laura DeCosta",344);
+                    list.quadraticInsertRecord("Brian",999);
+                    list.quadraticInsertRecord("Loud Music",864);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -286,6 +292,7 @@ int main(){
                 while(optionTwo != -99){
                 if(optionTwo == 1){
                     list.doubleInsertRecord("David DeCosta",578);
+                    list.doubleInsertRecord("Ricky Bobby",578);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -319,8 +326,6 @@ int main(){
             "or (-99) to quit:" <<endl;
             cin>>option;
     }
-
-
 
     return 0;
 }

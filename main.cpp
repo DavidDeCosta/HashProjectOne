@@ -6,6 +6,7 @@ using namespace std;
 
 
 int hashKey(int key);
+int hashkeytwo(int homeadress, int key);
 static const int TABLESIZE = 19;
 
 class List{
@@ -137,6 +138,59 @@ public:
             }
         }
     }
+
+    void doubleInsertRecord(string name,int key){
+        if(count == TABLESIZE){
+            cout << "Table Full, Insertion Failed! \n";
+            return;
+        }
+        int index = hashKey(key);
+        while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
+            index = hashkeytwo(index,key);
+        }   
+            HashTable[index]->name = name;
+            HashTable[index]->key=key;
+            count++;
+    }
+
+    void doubleDeleteRecord(int key){
+        int index = hashKey(key);
+        bool recordFound = true;
+        while(recordFound){
+            if(HashTable[index]->key = key){
+                HashTable[index]->key = -1;
+                HashTable[index]->name = "empty";
+                cout << "Key Deleted! at index: " << index <<endl;
+                recordFound = false;
+            }
+            else if(HashTable[index]->key = 0){
+                cout << "Record not found. \n";
+                recordFound =false;
+            }
+            else{
+                index = hashkeytwo(index,key);
+            }
+        }
+    }
+
+    void doubleSearchRecord(int key){
+        int index = hashKey(key);
+       // int temp = hashKey(key);
+        bool recordFound = true;
+        while(recordFound){
+            if(HashTable[index]->key == key && HashTable[index]->key != -1){
+                cout << "Key found! at index: " << index  << " Name: "<< HashTable[index]->name<<endl;
+                recordFound = false;
+            }
+            else if(HashTable[index]->key == 0){
+                cout << "Record not found.... \n";
+                recordFound =false;
+            }
+            else{
+                index = hashkeytwo(index,key);
+            }
+        }
+    }
     
     void printList(){
         for(int i = 0; i < TABLESIZE; i++){
@@ -154,7 +208,7 @@ int main(){
 
     cout <<endl;
     cout << "What operation would you like to execute? (1)linear probing, (2) quadratic probing, (3) double hashing"<<
-            "or (-99) to quit:" <<endl;
+            " or (-99) to quit:" <<endl;
     cin >>option;
     while(option != -99){
         if(option == 1){
@@ -162,11 +216,11 @@ int main(){
             cin >> optionTwo;
             while(optionTwo != -99){
                 if(optionTwo == 1){
-                    list.linearInsertRecord("David DeCosta", 192); //2
-                    list.linearInsertRecord("Emily DeCosta",444); //7
-                    list.linearInsertRecord("Vincent DeCosta",345); //3
-                    list.linearInsertRecord("Nathan DeCosta",892); //18
-                    list.linearInsertRecord("Travis Ramsey", 192); //2
+                    list.linearInsertRecord("David DeCosta", 192);
+                    list.linearInsertRecord("Emily DeCosta",444);
+                    list.linearInsertRecord("Vincent DeCosta",345);
+                    list.linearInsertRecord("Nathan DeCosta",892);
+                    list.linearInsertRecord("Travis Ramsey", 192);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -227,7 +281,35 @@ int main(){
             }
         }
         else if(option ==3){
+            cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+            cin >> optionTwo;
+                while(optionTwo != -99){
+                if(optionTwo == 1){
+                    list.doubleInsertRecord("David DeCosta",578);
+                    cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+                    cin >> optionTwo;
+                }
+                else if(optionTwo == 2){
+                    list.doubleDeleteRecord(578);
+                    cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+                    cin >> optionTwo;
+                }
+                else if(optionTwo == 3){
+                    list.printList();
+                    cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+                    cin >> optionTwo;
+                }
+                else if(optionTwo == 4){
+                    list.doubleSearchRecord(578);
+                    cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+                    cin >> optionTwo;
+                }
+                else{
+                    cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
+                    cin >> optionTwo;
+                }
             }
+        }
         else{
             cout << "What operation would you like to execute? (1)linear probing, (2) quadratic probing, (3) double hashing"<<
             "or (-99) to quit:" <<endl;
@@ -245,4 +327,10 @@ int main(){
 
 int hashKey(int key){
     return key%TABLESIZE;
+}
+
+int hashkeytwo(int homeadress, int key){
+    int j;
+    j = key / TABLESIZE; // stores the quotient to be the increment
+    return (homeadress + j) % TABLESIZE;
 }

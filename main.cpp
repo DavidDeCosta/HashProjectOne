@@ -34,7 +34,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-            cout << "Checked index: " << index <<endl;
+            //cout << "Checked index: " << index <<endl;
             index = (index +1) % TABLESIZE;
         }   
             HashTable[index]->name = name;
@@ -46,13 +46,14 @@ public:
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
-            if(HashTable[index]->key = key){
+            if(HashTable[index]->key == key){
                 HashTable[index]->key = -1;
                 HashTable[index]->name = "empty";
                 cout << "Key Deleted! at index: " << index <<endl;
                 recordFound = false;
+                count--;
             }
-            else if(HashTable[index]->key = 0){
+            else if(HashTable[index]->key == 0){
                 cout << "Record not found. \n";
                 recordFound =false;
             }
@@ -89,7 +90,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-            cout << "Checked index: " <<index << endl;
+           // cout << "Checked index: " <<index << endl;
             index = (index + n *n) % TABLESIZE;
             n++;
         }   
@@ -103,13 +104,14 @@ public:
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
-            if(HashTable[index]->key = key){
+            if(HashTable[index]->key == key){
                 HashTable[index]->key = -1;
                 HashTable[index]->name = "empty";
                 cout << "Key Deleted! at index: " << index <<endl;
                 recordFound = false;
+                count--;
             }
-            else if(HashTable[index]->key = 0){
+            else if(HashTable[index]->key == 0){
                 cout << "Record not found. \n";
                 recordFound =false;
             }
@@ -148,7 +150,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-            cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+          //  cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
             index = hashkeytwo(index,key);
         }   
             HashTable[index]->name = name;
@@ -160,20 +162,22 @@ public:
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
-            if(HashTable[index]->key = key){
+            if(HashTable[index]->key == key && HashTable[index]->key != -1){
                 HashTable[index]->key = -1;
                 HashTable[index]->name = "empty";
                 cout << "Key Deleted! at index: " << index <<endl;
                 recordFound = false;
+                count--;
             }
-            else if(HashTable[index]->key = 0){
+            else if(HashTable[index]->key == -1){
+               // cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+                index = hashkeytwo(index,key);
+            }
+            else{
                 cout << "Record not found. \n";
                 recordFound =false;
             }
-            else{
-                cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
-                index = hashkeytwo(index,key);
-            }
+            
         }
     }
 
@@ -191,7 +195,7 @@ public:
                 recordFound =false;
             }
             else{
-                cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+             //   cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
                 index = hashkeytwo(index,key);
             }
         }

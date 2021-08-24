@@ -13,7 +13,7 @@ static const int TABLESIZE = 19;
 class List{
 private:
 public:
-    struct Record{
+    struct Record{   // creates a Struct that hold two pieces of information a Name and a Key
         string name;
         int key;
     };
@@ -28,7 +28,7 @@ public:
         }
     }
 
-    void linearInsertRecord(string name, int key){
+    void linearInsertRecord(string name, int key){  // Inserts a name and key  using linear probing
         if(count == TABLESIZE){
             cout << "Table Full, Insertion Failed! \n";
             return;
@@ -43,7 +43,7 @@ public:
             count++;
         }
 
-    void linearDeleteRecord(int key){
+    void linearDeleteRecord(int key){  // deletes record from the table using linear probing
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
@@ -59,12 +59,13 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index<<endl;
                 index = (index +1) % TABLESIZE;
             }
         }
     }
 
-  void linearSearchRecord(int key){
+  void linearSearchRecord(int key){ // searches for a given key in the table using linear probing
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
@@ -77,12 +78,13 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index<<endl;
                 HashTable[index++];
             }
         }
     }
 
-    void quadraticInsertRecord(string name,int key){
+    void quadraticInsertRecord(string name,int key){ // Inserts a name and key  using quadratic probing
         int n =1;
         if(count == TABLESIZE){
             cout << "Table Full, Insertion Failed! \n";
@@ -99,7 +101,7 @@ public:
             count++;
         }
         
-    void quadraticDeleteRecord(int key){
+    void quadraticDeleteRecord(int key){ // deletes a record from the table using quadratic probing
         int n =1;
         int index = hashKey(key);
         bool recordFound = true;
@@ -116,13 +118,14 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index<<endl;
                 index = (index + n *n) % TABLESIZE;
                 n++;
             }
         }
     }
 
-    void quadraticSearchRecord(int key){
+    void quadraticSearchRecord(int key){ // searches for a given key in the table using quadratic probing
         int n = 1;
         int index = hashKey(key);
         bool recordFound = true;
@@ -136,13 +139,14 @@ public:
                 recordFound =false;
             }
             else{
+                cout << "Probed location: " << index<<endl;
                 index = (index + n *n) % TABLESIZE;
                 n++;
             }
         }
     }
 
-    void doubleInsertRecord(string name,int key){
+    void doubleInsertRecord(string name,int key){ // Inserts a name and key  using double hashing
         if(count == TABLESIZE){
             cout << "Table Full, Insertion Failed! \n";
             return;
@@ -157,7 +161,7 @@ public:
             count++;
     }
 
-    void doubleDeleteRecord(int key){
+    void doubleDeleteRecord(int key){ // deletes a record from the table using double hasing
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
@@ -169,7 +173,7 @@ public:
                 count--;
             }
             else if(HashTable[index]->key == -1){
-               // cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+                cout << "Probed location: " << index<<endl;
                 index = hashkeytwo(index,key);
             }
             else{
@@ -180,7 +184,7 @@ public:
         }
     }
 
-    void doubleSearchRecord(int key){
+    void doubleSearchRecord(int key){ // searches for a given key in the table using double hasing
         int index = hashKey(key);
         bool recordFound = true;
         while(recordFound){
@@ -199,7 +203,7 @@ public:
         }
     }
     
-    void printList(){
+    void printList(){  // prints the hash table
         for(int i = 0; i < TABLESIZE; i++){
             cout << "Table index: " << i << " Name: " <<HashTable[i]->name << " Key: " << HashTable[i]->key <<endl;
         }
@@ -212,8 +216,8 @@ int main(){
     int option;
     int optionTwo;
     int key;
-    string name ,whitespace;
-    List list;
+    string name ,whitespace; // name: stores name, whitespace: grabs the whitespace
+    List list; // creates an object of List
 
     cout <<endl;
     cout << "What operation would you like to execute? (1)linear probing, (2) quadratic probing, (3) double hashing"<<
@@ -339,11 +343,11 @@ int main(){
         }
         else{
             cout << "What operation would you like to execute? (1)linear probing, (2) quadratic probing, (3) double hashing"<<
-            "or (-99) to quit:" <<endl;
+            " or (-99) to quit:" <<endl;
             cin>>option;
         }
         cout << "What operation would you like to execute? (1)linear probing, (2) quadratic probing, (3) double hashing"<<
-            "or (-99) to quit:" <<endl;
+            " or (-99) to quit:" <<endl;
             cin>>option;
     }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
+#include <string>
 using namespace std;
 // David DeCosta
 
@@ -34,7 +35,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-            //cout << "Checked index: " << index <<endl;
+            cout << "Checked index: " << index <<endl;
             index = (index +1) % TABLESIZE;
         }   
             HashTable[index]->name = name;
@@ -65,7 +66,6 @@ public:
 
   void linearSearchRecord(int key){
         int index = hashKey(key);
-       // int temp = hashKey(key);
         bool recordFound = true;
         while(recordFound){
             if(HashTable[index]->key == key && HashTable[index]->key != -1){
@@ -90,7 +90,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-           // cout << "Checked index: " <<index << endl;
+            cout << "Checked index: " <<index << endl;
             index = (index + n *n) % TABLESIZE;
             n++;
         }   
@@ -125,7 +125,6 @@ public:
     void quadraticSearchRecord(int key){
         int n = 1;
         int index = hashKey(key);
-       // int temp = hashKey(key);
         bool recordFound = true;
         while(recordFound){
             if(HashTable[index]->key == key && HashTable[index]->key != -1){
@@ -150,7 +149,7 @@ public:
         }
         int index = hashKey(key);
         while(HashTable[index]->key !=0 && HashTable[index]->key != -1){
-          //  cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+            cout << "Checked index: " <<index << endl;
             index = hashkeytwo(index,key);
         }   
             HashTable[index]->name = name;
@@ -183,7 +182,6 @@ public:
 
     void doubleSearchRecord(int key){
         int index = hashKey(key);
-       // int temp = hashKey(key);
         bool recordFound = true;
         while(recordFound){
             if(HashTable[index]->key == key && HashTable[index]->key != -1){
@@ -195,7 +193,7 @@ public:
                 recordFound =false;
             }
             else{
-             //   cout << "Probed location: " << index << " for name: "<< HashTable[index]->name<< endl;
+                cout << "Probed location: " << index<<endl;
                 index = hashkeytwo(index,key);
             }
         }
@@ -213,6 +211,8 @@ int main(){
 
     int option;
     int optionTwo;
+    int key;
+    string name ,whitespace;
     List list;
 
     cout <<endl;
@@ -225,17 +225,19 @@ int main(){
             cin >> optionTwo;
             while(optionTwo != -99){
                 if(optionTwo == 1){
-                    list.linearInsertRecord("David DeCosta", 192);
-                    list.linearInsertRecord("Emily DeCosta",444);
-                    list.linearInsertRecord("Vincent DeCosta",345);
-                    list.linearInsertRecord("Nathan DeCosta",892);
-                    list.linearInsertRecord("Travis Ramsey", 192);
-                    list.linearInsertRecord("Snowman",192);
+                    getline (cin, whitespace);
+                    cout << "Enter a name: \n";
+                    getline (cin,name);
+                    cout << "Enter a 3 digit key(000-999): \n";
+                    cin>> key;
+                    list.linearInsertRecord(name, key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 2){
-                    list.linearDeleteRecord(192);
+                    cout << "Enter the key you would like to delete (3 digits): \n";
+                    cin >> key;
+                    list.linearDeleteRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -245,7 +247,9 @@ int main(){
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 4){
-                    list.linearSearchRecord(192);
+                    cout << "Enter the key you would like to Search (3 digits): \n";
+                    cin >> key;
+                    list.linearSearchRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -260,17 +264,19 @@ int main(){
             cin >> optionTwo;
                 while(optionTwo != -99){
                 if(optionTwo == 1){
-                    list.quadraticInsertRecord("El Twono Loco",198);
-                    list.quadraticInsertRecord("Christopher",198);
-                    list.quadraticInsertRecord("Estelle Lombardi",198);
-                    list.quadraticInsertRecord("Laura DeCosta",344);
-                    list.quadraticInsertRecord("Brian",999);
-                    list.quadraticInsertRecord("Loud Music",864);
+                    getline (cin, whitespace);
+                    cout << "Enter a name: \n";
+                    getline (cin,name);
+                    cout << "Enter a 3 digit key(000-999): \n";
+                    cin>> key;
+                    list.quadraticInsertRecord(name,key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 2){
-                    list.quadraticDeleteRecord(198);
+                    cout << "Enter the key you would like to delete (3 digits): \n";
+                    cin >> key;
+                    list.quadraticDeleteRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -280,7 +286,9 @@ int main(){
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 4){
-                    list.quadraticSearchRecord(198);
+                    cout << "Enter the key you would like to Search (3 digits): \n";
+                    cin >> key;
+                    list.quadraticSearchRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -295,13 +303,19 @@ int main(){
             cin >> optionTwo;
                 while(optionTwo != -99){
                 if(optionTwo == 1){
-                    list.doubleInsertRecord("David DeCosta",578);
-                    list.doubleInsertRecord("Ricky Bobby",578);
+                    getline (cin, whitespace);
+                    cout << "Enter a name: \n";
+                    getline (cin,name);
+                    cout << "Enter a 3 digit key(000-999): \n";
+                    cin>> key;
+                    list.doubleInsertRecord(name,key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 2){
-                    list.doubleDeleteRecord(578);
+                    cout << "Enter the key you would like to delete (3 digits): \n";
+                    cin >> key;
+                    list.doubleDeleteRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
@@ -311,7 +325,9 @@ int main(){
                     cin >> optionTwo;
                 }
                 else if(optionTwo == 4){
-                    list.doubleSearchRecord(578);
+                    cout << "Enter the key you would like to Search (3 digits): \n";
+                    cin >> key;
+                    list.doubleSearchRecord(key);
                     cout << "(1) For insert, (2) for Delete, (3) for PrintList, (4) for Search, (-99) to exit \n";
                     cin >> optionTwo;
                 }
